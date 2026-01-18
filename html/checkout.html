@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thanh toán - SNEAKERHUB</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../css/checkout.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" type="image/png" href="../img/logo-white.png" />
+  </head>
+  <body class="checkout-page">
+    <nav class="navbar small-nav">
+      <div class="logo">SNEAKER<span>HUB</span></div>
+      <a href="../index.html" class="back-link"
+        ><i class="fas fa-arrow-left"></i> Quay lại mua sắm</a
+      >
+    </nav>
+
+    <main class="checkout-container">
+      <div class="checkout-form">
+        <h2 class="checkout-form-title">Thông tin giao hàng</h2>
+        <div class="auth-box" style="box-shadow: none; padding: 0">
+          <div class="input-group">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Họ và tên người nhận" required />
+          </div>
+          <div class="input-group">
+            <i class="fas fa-phone"></i>
+            <input type="tel" placeholder="Số điện thoại" required />
+          </div>
+          <div class="input-group">
+            <i class="fas fa-map-marker-alt"></i>
+            <input type="text" placeholder="Địa chỉ giao hàng" required />
+          </div>
+
+          <h3>Phương thức thanh toán</h3>
+          <div class="payment-options">
+            <label class="payment-item active">
+              <input type="radio" name="payment" checked />
+              <span
+                ><i class="fas fa-money-bill-wave"></i> Thanh toán khi nhận hàng
+                (COD)</span
+              >
+            </label>
+            <label class="payment-item">
+              <input type="radio" name="payment" />
+              <span
+                ><i class="fas fa-university"></i> Chuyển khoản ngân hàng</span
+              >
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-summary">
+        <h3 class="order-summary-title">Đơn hàng của bạn</h3>
+
+        <div id="checkout-items" class="summary-list"></div>
+
+        <div class="summary-totals">
+          <div class="total-row">
+            <span>Tạm tính:</span>
+            <span id="subtotal">0đ</span>
+          </div>
+          <div class="total-row">
+            <span>Phí vận chuyển:</span>
+            <span>Miễn phí</span>
+          </div>
+          <hr />
+          <div class="total-row final">
+            <span>Tổng cộng:</span>
+            <span id="final-total">0đ</span>
+          </div>
+          <button
+            class="btn-auth"
+            style="margin-top: 20px; width: 100%"
+            onclick="confirmOrder()"
+          >
+            XÁC NHẬN ĐẶT HÀNG
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <footer class="main-footer">
+      <div class="footer-container">
+        <div class="footer-col">
+          <div class="logo">SNEAKER<span>HUB</span></div>
+          <p class="footer-desc">
+            Chúng tôi cung cấp những mẫu giày sneaker chất lượng cao, đón đầu xu
+            hướng thế giới. Tự hào là điểm đến tin cậy của các tín đồ giày hiệu
+            tại Việt Nam.
+          </p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3>Mua Sắm</h3>
+          <ul>
+            <li><a href="#">Tất cả sản phẩm</a></li>
+            <li><a href="#">Giày Nam</a></li>
+            <li><a href="#">Giày Nữ</a></li>
+            <li><a href="#">Phụ kiện</a></li>
+            <li><a href="#">Giảm giá cực sốc</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Hỗ Trợ</h3>
+          <ul>
+            <li><a href="#">Chính sách đổi trả</a></li>
+            <li><a href="#">Hướng dẫn chọn size</a></li>
+            <li><a href="#">Theo dõi đơn hàng</a></li>
+            <li><a href="#">Hệ thống cửa hàng</a></li>
+            <li><a href="#">Câu hỏi thường gặp</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Đăng ký nhận tin</h3>
+          <p>Nhận ngay Voucher giảm giá 10% cho đơn hàng đầu tiên.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Email của bạn..." required />
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+          <div class="payment-methods">
+            <i class="fab fa-cc-visa"></i>
+            <i class="fab fa-cc-mastercard"></i>
+            <i class="fab fa-cc-paypal"></i>
+            <i class="fab fa-apple-pay"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 SneakerHub. All rights reserved. Thiết kế bởi Duy</p>
+      </div>
+    </footer>
+
+    <script src="../js/checkout.js"></script>
+  </body>
+</html>

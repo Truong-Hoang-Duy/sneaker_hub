@@ -1,0 +1,131 @@
+.checkout-page {
+  background: #f8f9fa;
+  color: #2f3542;
+}
+
+.small-nav {
+  background: #fff !important;
+  border-bottom: 1px solid #eee;
+}
+.small-nav .logo {
+  color: #333;
+}
+.back-link {
+  text-decoration: none;
+  color: #666;
+  font-size: 14px;
+}
+
+.checkout-container {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.checkout-form,
+.order-summary {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.payment-item {
+  border: 1.5px solid #eee;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.payment-item:has(input:checked) {
+  border-color: var(--primary-color);
+  background: rgba(255, 71, 87, 0.05);
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.item-info {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.item-name {
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0;
+}
+.item-qty {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.final {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary-color);
+}
+/* Cố định cột bên phải */
+.order-summary {
+  position: sticky;
+  top: 100px; /* Cách mép trên màn hình một khoảng vừa đủ */
+  max-height: calc(
+    100vh - 140px
+  ); /* Không bao giờ vượt quá chiều cao màn hình */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tạo thanh cuộn cho danh sách sản phẩm */
+.summary-list {
+  flex: 1; /* Chiếm phần diện tích còn lại */
+  overflow-y: auto; /* Hiện thanh cuộn khi vượt quá chiều cao */
+  padding-right: 10px;
+  margin-bottom: 20px;
+}
+
+/* Tùy chỉnh thanh cuộn cho đẹp và mảnh hơn */
+.summary-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.summary-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.summary-list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+.summary-list::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+.checkout-form-title,
+.order-summary-title {
+  margin-bottom: 20px;
+}

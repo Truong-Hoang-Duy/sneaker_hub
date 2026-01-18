@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sneaker Store</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" type="image/png" href="./img/logo-white.png" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <nav class="navbar">
+        <div class="logo">SNEAKER<span>HUB</span></div>
+        <ul class="nav-links">
+          <li><a href="#" class="active">Trang chủ</a></li>
+          <li><a href="#">Bộ sưu tập</a></li>
+          <li><a href="#">Bán chạy</a></li>
+          <li><a href="#">Giảm giá</a></li>
+        </ul>
+        <div class="nav-icons">
+          <div class="cart-icon" onclick="toggleCart()">
+            <i class="fas fa-shopping-bag"></i>
+            <span id="cart-count">0</span>
+          </div>
+
+          <button class="btn-login" id="btn-login-nav">Đăng nhập</button>
+
+          <div class="user-profile" id="user-profile" style="display: none">
+            <div class="user-info" onclick="toggleUserMenu()">
+              <img
+                src="https://i.pravatar.cc/150?u=sneakerhub"
+                alt="Avatar"
+                class="avatar"
+              />
+              <span class="user-name">Quốc Bảo</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="user-dropdown" id="user-dropdown">
+              <a href="#"
+                ><i class="fas fa-user-circle"></i> Tài khoản của tôi</a
+              >
+              <a href="#"><i class="fas fa-history"></i> Đơn hàng đã mua</a>
+              <a href="#"><i class="fas fa-heart"></i> Sản phẩm yêu thích</a>
+              <a href="./html/admin.html" id="user-dropdown-dashboard"
+                ><i class="fas fa-dashboard"></i> Quản lý sản phẩm</a
+              >
+              <hr />
+              <a href="#" onclick="handleLogout()" class="logout-link"
+                ><i class="fas fa-sign-out-alt"></i> Đăng xuất</a
+              >
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <span class="badge">New Arrival 2026</span>
+        <h1>Bước Đi Của <br /><span>Sự Khác Biệt</span></h1>
+        <p>
+          Không chỉ là giày, đó là phong cách sống của bạn. Trải nghiệm công
+          nghệ đệm khí mới nhất giúp đôi chân luôn êm ái.
+        </p>
+        <div class="hero-btns">
+          <button class="btn-primary">
+            Mua ngay <i class="fas fa-arrow-right"></i>
+          </button>
+          <button class="btn-secondary">Xem video</button>
+        </div>
+      </div>
+    </section>
+
+    <main class="container">
+      <h2 class="section-title">Sản Phẩm Nổi Bật</h2>
+      <div class="product-grid" id="product-list"></div>
+    </main>
+
+    <div id="cart-modal" class="cart-sidebar">
+      <div class="cart-header">
+        <h2><i class="fas fa-shopping-cart"></i> Giỏ hàng của bạn</h2>
+        <span class="close-cart" onclick="toggleCart()">&times;</span>
+      </div>
+
+      <div class="cart-body">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Sản phẩm</th>
+              <th>Giá</th>
+              <th>SL</th>
+              <th>Tổng</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="cart-items"></tbody>
+        </table>
+
+        <div
+          id="empty-cart-msg"
+          style="display: none; text-align: center; padding: 20px"
+        >
+          <i class="fas fa-box-open" style="font-size: 3rem; color: #ddd"></i>
+          <p>Giỏ hàng đang trống</p>
+        </div>
+      </div>
+
+      <div class="cart-footer">
+        <div class="total-section">
+          <span>Tổng cộng:</span>
+          <span id="total-price">0đ</span>
+        </div>
+        <button class="btn-checkout">Tiến hành thanh toán</button>
+        <button class="btn-continue" onclick="toggleCart()">
+          Tiếp tục mua sắm
+        </button>
+      </div>
+    </div>
+
+    <footer class="main-footer">
+      <div class="footer-container">
+        <div class="footer-col">
+          <div class="logo">SNEAKER<span>HUB</span></div>
+          <p class="footer-desc">
+            Chúng tôi cung cấp những mẫu giày sneaker chất lượng cao, đón đầu xu
+            hướng thế giới. Tự hào là điểm đến tin cậy của các tín đồ giày hiệu
+            tại Việt Nam.
+          </p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3>Mua Sắm</h3>
+          <ul>
+            <li><a href="#">Tất cả sản phẩm</a></li>
+            <li><a href="#">Giày Nam</a></li>
+            <li><a href="#">Giày Nữ</a></li>
+            <li><a href="#">Phụ kiện</a></li>
+            <li><a href="#">Giảm giá cực sốc</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Hỗ Trợ</h3>
+          <ul>
+            <li><a href="#">Chính sách đổi trả</a></li>
+            <li><a href="#">Hướng dẫn chọn size</a></li>
+            <li><a href="#">Theo dõi đơn hàng</a></li>
+            <li><a href="#">Hệ thống cửa hàng</a></li>
+            <li><a href="#">Câu hỏi thường gặp</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Đăng ký nhận tin</h3>
+          <p>Nhận ngay Voucher giảm giá 10% cho đơn hàng đầu tiên.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Email của bạn..." required />
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+          <div class="payment-methods">
+            <i class="fab fa-cc-visa"></i>
+            <i class="fab fa-cc-mastercard"></i>
+            <i class="fab fa-cc-paypal"></i>
+            <i class="fab fa-apple-pay"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 SneakerHub. All rights reserved. Thiết kế bởi Duy</p>
+      </div>
+    </footer>
+
+    <div id="auth-modal" class="auth-modal">
+      <div class="auth-container">
+        <span class="auth-close" onclick="closeAuth()">&times;</span>
+
+        <div class="auth-box">
+          <div class="auth-toggle">
+            <button
+              id="toggle-login"
+              class="active"
+              onclick="showAuth('login')"
+            >
+              Đăng nhập
+            </button>
+            <button id="toggle-register" onclick="showAuth('register')">
+              Đăng ký
+            </button>
+          </div>
+
+          <form id="login-form" class="auth-form active">
+            <h2>Chào mừng trở lại!</h2>
+            <div class="input-group">
+              <i class="fas fa-envelope"></i>
+              <input type="email" placeholder="Email của bạn" required />
+            </div>
+            <div class="input-group">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                id="login-password"
+                placeholder="Mật khẩu"
+                required
+              />
+              <i
+                class="fas fa-eye"
+                id="togglePassword"
+                style="cursor: pointer; color: #ccc"
+              ></i>
+            </div>
+            <div class="forgot-pass"><a href="#">Quên mật khẩu?</a></div>
+            <button type="submit" class="btn-auth">Đăng nhập ngay</button>
+
+            <div class="divider"><span>Hoặc tiếp tục với</span></div>
+
+            <button type="button" class="btn-google">
+              <img
+                src="https://img.icons8.com/color/16/000000/google-logo.png"
+                alt="google"
+              />
+              Đăng nhập bằng Google
+            </button>
+          </form>
+
+          <form id="register-form" class="auth-form">
+            <h2>Tạo tài khoản mới</h2>
+            <div class="input-group">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Họ và tên" required />
+            </div>
+            <div class="input-group">
+              <i class="fas fa-envelope"></i>
+              <input type="email" placeholder="Email" required />
+            </div>
+            <div class="input-group">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Mật khẩu" required />
+            </div>
+            <button type="submit" class="btn-auth">Đăng ký tài khoản</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-auth-compat.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+
+    <script defer src="./js/firebase-config.js"></script>
+    <script defer src="./js/form.js"></script>
+    <script defer src="./common/auth.js"></script>
+    <script defer src="./js/authentication.js"></script>
+    <script defer src="./js/script.js"></script>
+  </body>
+</html>

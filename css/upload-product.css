@@ -1,0 +1,167 @@
+/* Layout cho trang Upload */
+.upload-grid {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 30px;
+  align-items: start;
+  min-height: 550px;
+}
+
+.upload-card,
+.preview-card {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  height: 100%;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.form-group input:focus {
+  border-color: var(--primary-color);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.btn-submit-pro {
+  width: 100%;
+  padding: 15px;
+  background: #1e293b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-submit-pro:hover {
+  background: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+/* Preview Section */
+.preview-card h3 {
+  margin-bottom: 20px;
+  font-size: 16px;
+  text-align: center;
+  color: #64748b;
+}
+
+.preview-container {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px dashed #e2e8f0;
+}
+
+.upload-area {
+  border: 2px dashed #cbd5e1;
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-area:hover,
+.upload-area.dragover {
+  border-color: var(--primary-color);
+  background: #fff5f6;
+}
+
+.upload-icon i {
+  font-size: 40px;
+  color: #94a3b8;
+  margin-bottom: 15px;
+  transition: 0.3s;
+}
+
+.upload-area:hover .upload-icon i {
+  color: var(--primary-color);
+  transform: translateY(-5px);
+}
+
+.upload-text {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.upload-text strong {
+  color: #1e293b;
+  display: block;
+}
+
+.upload-text span {
+  display: block;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* CSS cho ảnh Preview sau khi chọn */
+#file-preview-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+#file-preview-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+#remove-img-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 71, 87, 0.9);
+  color: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#remove-img-btn:hover {
+  transform: scale(1.1);
+  background: #ff4757;
+}

@@ -1,0 +1,223 @@
+/* Admin Layout */
+.admin-body {
+  background: #f0f2f5;
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.admin-header {
+  background: #1e293b;
+  color: white;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.admin-logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.admin-logo span {
+  color: var(--primary-color);
+}
+
+/* Container chứa toàn bộ thông tin user */
+.admin-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Thẻ a "Xem cửa hàng" */
+.nav-item {
+  text-decoration: none;
+  color: #cbd5e1;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+/* Khu vực Avatar và Tên Admin */
+.admin-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 12px;
+  background: #2d3748; /* Màu nền nhẹ để tách biệt với header */
+  border-radius: 50px; /* Bo tròn kiểu viên thuốc */
+  border: 1px solid #4a5568;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-user:hover {
+  background: #3d495d;
+  border-color: #718096;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.admin-user img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary-color); /* Vòng tròn màu thương hiệu quanh avatar */
+}
+
+.admin-user span {
+  color: #f8fafc;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Thêm icon mũi tên cho chuyên nghiệp */
+/* .admin-user::after {
+  content: "\f0d7"; 
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 12px;
+  color: #a0aec0;
+  margin-left: 5px;
+} */
+
+.admin-container {
+  display: flex;
+  min-height: calc(100vh - 55px);
+}
+
+/* Sidebar */
+.admin-sidebar {
+  width: 260px;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  padding-top: 20px;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar-menu li a {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 25px;
+  color: #64748b;
+  text-decoration: none;
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+.sidebar-menu li.active a,
+.sidebar-menu li a:hover {
+  background: #f8fafc;
+  color: var(--primary-color);
+  border-left: 4px solid var(--primary-color);
+}
+
+.logout {
+  margin-top: 50px;
+  border-top: 1px solid #eee;
+}
+
+/* Main Content */
+.admin-main {
+  flex: 1;
+  padding: 30px;
+}
+.main-header {
+  margin-bottom: 30px;
+}
+.main-header h1 {
+  font-size: 24px;
+  color: #1e293b;
+  margin: 0;
+}
+
+.admin-table-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.admin-table th {
+  background: #f8fafc;
+  padding: 15px 20px;
+  color: #64748b;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+.admin-table td {
+  padding: 15px 20px;
+  border-top: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+/* Badge & Buttons */
+.status-badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.status-badge.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.order-items-min {
+  margin: 0;
+  padding-left: 15px;
+  font-size: 13px;
+  color: #475569;
+}
+.order-price {
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.btn-action {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.btn-action.view {
+  background: #e0f2fe;
+  color: #0369a1;
+  margin-right: 5px;
+}
+.btn-action.delete {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.btn-action:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
