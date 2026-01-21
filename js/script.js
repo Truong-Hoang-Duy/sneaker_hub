@@ -1,3 +1,7 @@
+/**
+ * @section Data & Constants
+ * @description Định nghĩa danh sách sản phẩm mẫu và khởi tạo giỏ hàng từ LocalStorage.
+ */
 const products = [
   {
     id: 1,
@@ -51,11 +55,18 @@ const products = [
 
 let cart = JSON.parse(localStorage.getItem("sneakerCart")) || [];
 
+/**
+ * @section Initialization
+ * @description Lắng nghe sự kiện tải trang để khởi tạo giao diện giỏ hàng.
+ */
 document.addEventListener("DOMContentLoaded", () => {
   updateCart();
 });
 
-// Hiển thị sản phẩm
+/**
+ * @section Product Display
+ * @description Render danh sách sản phẩm từ mảng dữ liệu ra giao diện HTML.
+ */
 function displayProducts() {
   const productList = document.getElementById("product-list");
   productList.innerHTML = products
@@ -73,42 +84,57 @@ function displayProducts() {
                 </button>
             </div>
         </div>
-    `
+    `,
     )
     .join("");
 }
 displayProducts();
 
-// Thêm vào giỏ hàng
+/**
+ * @section Cart Operations
+ * @description Các hàm xử lý nghiệp vụ giỏ hàng như thêm, xóa, thay đổi số lượng và lưu trữ.
+ */
 function addToCart(id) {
   const product = products.find((p) => p.id === id);
-
-  // Kiểm tra sản phẩm đã tồn tại trong giỏ hàng chưa
   const existingItem = cart.find((item) => item.id === id);
 
   if (existingItem) {
-    // Nếu đã có, chỉ tăng số lượng
     existingItem.quantity += 1;
   } else {
-    // Nếu chưa có, thêm mới với quantity = 1
     cart.push({ ...product, quantity: 1 });
   }
 
   updateCart();
 }
 
-// Thêm hàm này để lưu dữ liệu bất cứ khi nào giỏ hàng cập nhật
 function saveCartToLocal() {
   localStorage.setItem("sneakerCart", JSON.stringify(cart));
 }
 
-// Cập nhật giao diện giỏ hàng
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCart();
+}
+
+function changeQuantity(index, delta) {
+  cart[index].quantity += delta;
+
+  if (cart[index].quantity <= 0) {
+    removeFromCart(index);
+  } else {
+    updateCart();
+  }
+}
+
+/**
+ * @section UI Updates
+ * @description Cập nhật giao diện giỏ hàng, tính tổng tiền và số lượng item mỗi khi có thay đổi.
+ */
 function updateCart() {
   const cartItemsContainer = document.getElementById("cart-items");
   const totalDisplay = document.getElementById("total-price");
   const cartCount = document.getElementById("cart-count");
 
-  // Tính tổng số lượng icon giỏ hàng
   const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
   cartCount.innerText = totalQuantity;
 
@@ -144,72 +170,54 @@ function updateCart() {
                     </button>
                 </td>
             </tr>
-        `
+        `,
       )
       .join("");
   }
 
   const totalMoney = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
-    0
+    0,
   );
   totalDisplay.innerText = totalMoney.toLocaleString() + "đ";
 
   saveCartToLocal();
-
   cartCount.innerText = totalQuantity;
 }
 
-function changeQuantity(index, delta) {
-  cart[index].quantity += delta;
-
-  // Nếu số lượng giảm xuống 0 thì xóa khỏi giỏ
-  if (cart[index].quantity <= 0) {
-    removeFromCart(index);
-  } else {
-    updateCart();
-  }
-}
-
+/**
+ * @section User Interface Interactions
+ * @description Các hàm xử lý ẩn/hiện Modal giỏ hàng và Menu người dùng.
+ */
 function toggleCart() {
   document.getElementById("cart-modal").classList.toggle("active");
 }
 
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCart();
-}
-
-// 1. Hàm bật/tắt menu khi bấm vào Avatar/Tên
 function toggleUserMenu(event) {
-  // Ngăn chặn sự kiện click lan ra ngoài (bubble up)
-  // để tránh việc vừa mở xong lại bị hàm window.onclick đóng ngay lập tức
   if (event) event.stopPropagation();
-
   const dropdown = document.getElementById("user-dropdown");
   dropdown.classList.toggle("active");
 }
 
-// 2. Xử lý đóng menu khi bấm ra ngoài
 window.addEventListener("click", function (event) {
   const userProfile = document.getElementById("user-profile");
   const dropdown = document.getElementById("user-dropdown");
 
-  // Kiểm tra nếu menu đang mở VÀ vị trí bấm KHÔNG nằm trong cụm user-profile
   if (dropdown.classList.contains("active")) {
     if (!userProfile.contains(event.target)) {
       dropdown.classList.remove("active");
-      console.log("Đã đóng menu do bấm ra ngoài");
     }
   }
 });
 
-// Xử lý sự kiện khi bấm nút "Tiến hành thanh toán"
+/**
+ * @section Checkout Logic
+ * @description Xử lý sự kiện khi người dùng tiến hành thanh toán.
+ */
 document.querySelector(".btn-checkout").onclick = function () {
   if (cart.length === 0) {
     alert("Giỏ hàng của bạn đang trống!");
     return;
   }
-  // Chuyển hướng sang trang checkout
   window.location.href = "../html/checkout.html";
 };

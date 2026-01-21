@@ -20,31 +20,58 @@ function getAuthErrorMessage(errorCode) {
   }
 }
 
+function showToast(message, isError = false) {
+  Toastify({
+    text: message,
+    duration: 3000,
+    close: true,
+    gravity: "top",
+    position: "left",
+    style: {
+      background: isError
+        ? "linear-gradient(to right, #ff5f6d, #ffc371)" // Màu đỏ cam khi lỗi
+        : "linear-gradient(to right, #00b09b, #96c93d)", // Màu xanh khi thành công
+    },
+  }).showToast();
+}
+
 function getUser(user) {
+  const TWO_HOURS = 2 * 60 * 60 * 1000; // 2 giờ tính bằng miliseconds
+  const loginTimestamp = localStorage.getItem("loginTimestamp");
+  const now = new Date().getTime();
+
   if (user) {
-    // Lấy thông tin role từ Firestore
+    // KIỂM TRA THỜI GIAN: Nếu đã quá 2 tiếng
+    if (loginTimestamp && now - loginTimestamp > TWO_HOURS) {
+      auth.signOut().then(() => {
+        localStorage.removeItem("loginTimestamp");
+        alert("Phiên đăng nhập đã hết hạn (2 tiếng). Vui lòng đăng nhập lại.");
+        window.location.reload();
+      });
+      return;
+    }
+
+    // NẾU CÒN TRONG HẠN 2 TIẾNG: Hiển thị thông tin như bạn muốn
+    btnLoginNav.style.display = "none";
+    userProfile.style.display = "flex";
+
+    // Hiển thị tên và check quyền Admin
+    document.querySelector(".user-name").innerText =
+      user.displayName || user.email;
+
+    // Check quyền admin từ Firestore
     db.collection("users")
       .doc(user.uid)
       .get()
       .then((doc) => {
         if (doc.exists) {
-          const userData = doc.data();
-
-          // Cập nhật giao diện chung
-          btnLoginNav.style.display = "none";
-          userProfile.style.display = "flex";
-          document.querySelector(".user-name").innerText = userData.displayName;
-
-          // KIỂM TRA QUYỀN ADMIN
-          if (userData.role === "admin") {
-            // window.location.href = "../html/admin.html";
-            userDropdownDashboard.style.display = "block";
-          } else {
-            userDropdownDashboard.style.display = "none";
-          }
+          doc.data().role === "admin"
+            ? (userDropdownDashboard.style.display = "block")
+            : (userDropdownDashboard.style.display = "none");
         }
       });
   } else {
+    // Nếu chưa đăng nhập
     btnLoginNav.style.display = "block";
     userProfile.style.display = "none";
   }

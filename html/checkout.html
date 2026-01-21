@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
@@ -26,15 +26,25 @@
         <div class="auth-box" style="box-shadow: none; padding: 0">
           <div class="input-group">
             <i class="fas fa-user"></i>
-            <input type="text" placeholder="Họ và tên người nhận" required />
+            <input
+              id="fullname"
+              type="text"
+              placeholder="Họ và tên người nhận"
+              required
+            />
           </div>
           <div class="input-group">
             <i class="fas fa-phone"></i>
-            <input type="tel" placeholder="Số điện thoại" required />
+            <input id="phone" type="tel" placeholder="Số điện thoại" required />
           </div>
           <div class="input-group">
             <i class="fas fa-map-marker-alt"></i>
-            <input type="text" placeholder="Địa chỉ giao hàng" required />
+            <input
+              id="address"
+              type="text"
+              placeholder="Địa chỉ giao hàng"
+              required
+            />
           </div>
 
           <h3>Phương thức thanh toán</h3>

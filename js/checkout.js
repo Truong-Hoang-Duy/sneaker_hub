@@ -42,9 +42,40 @@ function renderCheckoutOrder() {
 
 // 4. Hàm xác nhận đặt hàng (Xóa giỏ hàng sau khi mua)
 function confirmOrder() {
-  alert("Chúc mừng! Đơn hàng của bạn đã được tiếp nhận.");
-  localStorage.removeItem("sneakerCart"); // Xóa giỏ hàng sau khi thanh toán thành công
-  window.location.href = "index.html"; // Quay lại trang chủ
+  // 1. Lấy thông tin từ Form
+  const name = document.getElementById("fullname").value;
+  const phone = document.getElementById("phone").value;
+
+  if (!name || !phone) {
+    alert("Vui lòng điền đầy đủ thông tin giao hàng!");
+    return;
+  }
+
+  // 2. Tạo đối tượng đơn hàng mới
+  const orderId = Date.now().toString().slice(-6); // Tạo mã đơn hàng ngẫu nhiên
+  const newOrder = {
+    id: orderId,
+    customerName: name,
+    phone: phone,
+    items: cart, // Sử dụng biến cart đã lấy từ localStorage
+    totalAmount: cart.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0,
+    ),
+    status: "pending",
+    date: new Date().toLocaleString(),
+  };
+
+  // 3. Lưu vào danh sách đơn hàng cho Admin
+  let orders = JSON.parse(localStorage.getItem("customerOrders")) || [];
+  orders.push(newOrder);
+  localStorage.setItem("customerOrders", JSON.stringify(orders));
+
+  // 4. Xóa giỏ hàng hiện tại
+  localStorage.removeItem("sneakerCart");
+
+  // 5. Chuyển hướng sang trang thành công
+  window.location.href = `order-success.html?id=${orderId}`;
 }
 
 // Chạy hàm render khi trang load
