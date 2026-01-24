@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
@@ -209,11 +209,18 @@
             <h2>Chào mừng trở lại!</h2>
             <div class="input-group">
               <i class="fas fa-envelope"></i>
-              <input type="email" placeholder="Email của bạn" required />
+              <input
+                name="email"
+                type="email"
+                placeholder="Email của bạn"
+                required
+                autocomplete="true"
+              />
             </div>
             <div class="input-group">
               <i class="fas fa-lock"></i>
               <input
+                name="password"
                 type="password"
                 id="login-password"
                 placeholder="Mật khẩu"
@@ -243,15 +250,31 @@
             <h2>Tạo tài khoản mới</h2>
             <div class="input-group">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Họ và tên" required />
+              <input
+                name="fullname"
+                type="text"
+                placeholder="Họ và tên"
+                required
+              />
             </div>
             <div class="input-group">
               <i class="fas fa-envelope"></i>
-              <input type="email" placeholder="Email" required />
+              <input
+                name="email"
+                type="email"
+                placeholder="Email"
+                required
+                autocomplete="true"
+              />
             </div>
             <div class="input-group">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Mật khẩu" required />
+              <input
+                name="password"
+                type="password"
+                placeholder="Mật khẩu"
+                required
+              />
             </div>
             <button type="submit" class="btn-auth">Đăng ký tài khoản</button>
           </form>

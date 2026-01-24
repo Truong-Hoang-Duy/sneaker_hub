@@ -5,25 +5,10 @@
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 
-const registerName = document.querySelector(
-  "#register-form input[type='text']",
-);
-const registerEmail = document.querySelector(
-  "#register-form input[type='email']",
-);
-const registerPassword = document.querySelector(
-  "#register-form input[type='password']",
-);
-
-const loginEmail = document.querySelector("#login-form input[type='email']");
-const loginPassword = document.querySelector(
-  "#login-form input[type='password']",
-);
-
 const btnLoginNav = document.getElementById("btn-login-nav");
 const userProfile = document.getElementById("user-profile");
 const userDropdownDashboard = document.getElementById(
-  "user-dropdown-dashboard",
+  "user-dropdown-dashboard"
 );
 
 const btnGoogle = document.querySelector(".btn-google");
@@ -35,35 +20,31 @@ const btnGoogle = document.querySelector(".btn-google");
  */
 registerForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  let msg = "";
-  let isErr = false;
-  const name = registerName.value;
+  const formData = new FormData(registerForm);
+  const data = Object.fromEntries(formData.entries());
+  console.log(data);
 
   auth
-    .createUserWithEmailAndPassword(registerEmail.value, registerPassword.value)
+    .createUserWithEmailAndPassword(data.email, data.password)
     .then((userCredential) => {
       var user = userCredential.user;
       console.log(user);
       console.log(db);
 
       // 1. Lưu tên vào Auth Profile
-      user.updateProfile({ displayName: name });
+      user.updateProfile({ displayName: data.fullname });
 
       // 2. Tạo document người dùng trong Firestore với role mặc định
       return db.collection("users").doc(user.uid).set({
         uid: user.uid,
-        displayName: name,
-        email: registerEmail.value,
+        displayName: data.fullname,
+        email: data.email,
         role: "user", // Mặc định là khách hàng
         createdAt: new Date(),
       });
     })
     .then(() => {
       showToast("Đăng ký thành công");
-
-      // registerName.value = "";
-      // registerEmail.value = "";
-      // registerPassword.value = "";
       registerForm.reset();
     })
     .catch((error) => {
@@ -85,8 +66,13 @@ registerForm.addEventListener("submit", (e) => {
 // Logic cũ
 // loginForm.addEventListener("submit", (e) => {
 //   e.preventDefault();
+
+//   const formData = new FormData(loginForm);
+//   const data = Object.fromEntries(formData.entries());
+//   console.log(data);
+
 //   auth
-//     .signInWithEmailAndPassword(loginEmail.value, loginPassword.value)
+//     .signInWithEmailAndPassword(data.email, data.password)
 //     .then((userCredential) => {
 //       // Signed in
 //       var user = userCredential.user;
@@ -101,13 +87,13 @@ registerForm.addEventListener("submit", (e) => {
 
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  const formData = new FormData(loginForm);
+  const data = Object.fromEntries(formData.entries());
+  console.log(data);
   auth
     .setPersistence(firebase.auth.Auth.Persistence.LOCAL) // Lưu lại để load trang không mất
     .then(() => {
-      return auth.signInWithEmailAndPassword(
-        loginEmail.value,
-        loginPassword.value,
-      );
+      return auth.signInWithEmailAndPassword(data.email, data.password);
     })
     .then((userCredential) => {
       // Lưu mốc thời gian đăng nhập mới nhất
@@ -118,7 +104,12 @@ loginForm.addEventListener("submit", (e) => {
       closeAuth();
     })
     .catch((error) => {
-      console.error(error);
+      var errorCode = error.code;
+      //   var errorMessage = error.message;
+      console.log(error);
+
+      const errorMsg = getAuthErrorMessage(errorCode);
+      showToast(errorMsg, true);
     });
 });
 // ------------------------------------------
