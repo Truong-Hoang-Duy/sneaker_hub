@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý sản phẩm - SNEAKERADMIN</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../css/admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      .product-img-td {
+        width: 80px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+      .price-text {
+        color: var(--primary-color);
+        font-weight: bold;
+      }
+      #no-product {
+        text-align: center;
+        padding: 50px;
+        color: #888;
+      }
+    </style>
+  </head>
+  <body class="admin-body">
+    <header class="admin-header">
+      <div class="admin-logo">
+        <i class="fas fa-user-shield"></i> SNEAKER<span>ADMIN</span>
+      </div>
+      <nav class="admin-nav">
+        <a href="../index.html" class="nav-item" target="_blank"
+          ><i class="fas fa-external-link-alt"></i> Xem cửa hàng</a
+        >
+        <div class="admin-user">
+          <img src="https://i.pravatar.cc/150?u=admin" alt="Admin" /><span
+            >Quản trị viên</span
+          >
+        </div>
+      </nav>
+    </header>
+
+    <div class="admin-container">
+      <aside class="admin-sidebar">
+        <ul class="sidebar-menu">
+          <li>
+            <a href="#"
+              ><i class="fas fa-shopping-cart"></i> Quản lý đơn hàng</a
+            >
+          </li>
+          <li>
+            <a href="upload-product.html"
+              ><i class="fas fa-plus-square"></i> Thêm sản phẩm</a
+            >
+          </li>
+          <li class="active">
+            <a href="manage-products.html"
+              ><i class="fas fa-box"></i> Quản lý sản phẩm</a
+            >
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-images"></i> Quản lý kho ảnh</a>
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-chart-line"></i> Báo cáo doanh thu</a>
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-users"></i> Khách hàng</a>
+          </li>
+          <li class="logout">
+            <a href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+          </li>
+        </ul>
+      </aside>
+
+      <main class="admin-main">
+        <div class="main-header">
+          <h1>Danh sách sản phẩm trong kho</h1>
+          <p>Tổng cộng: <span id="total-products">0</span> sản phẩm</p>
+        </div>
+
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Ảnh</th>
+                <th>Tên sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Giá bán</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="product-list-admin">
+              <!-- <tr>
+                <td>
+                  <img src="../img/NikeAirForce1.jpg" class="product-img-td" />
+                </td>
+                <td><strong>Nike Air Jordan 1</strong></td>
+                <td><span>1</span></td>
+                <td>
+                  <span class="price-text">3500000đ</span>
+                </td>
+                <td>
+                  <button class="btn-action view">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn-action delete" onclick="deleteProduct(1)">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr> -->
+            </tbody>
+          </table>
+          <div id="no-product">
+            <i class="fas fa-folder-open" style="font-size: 3rem"></i>
+            <p>Chưa có sản phẩm nào được đăng.</p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-auth-compat.js"></script>
+
+    <script defer src="../config/firebase-config.js"></script>
+    <script defer src="../js/manage-products.js"></script>
+    <!-- <script>
+      let products = JSON.parse(localStorage.getItem("allProducts")) || [];
+
+      function renderProducts() {
+        const listContainer = document.getElementById("product-list-admin");
+        const noProduct = document.getElementById("no-product");
+        document.getElementById("total-products").innerText = products.length;
+
+        if (products.length === 0) {
+          listContainer.innerHTML = "";
+          noProduct.style.display = "block";
+          return;
+        }
+
+        noProduct.style.display = "none";
+        listContainer.innerHTML = products
+          .map(
+            (pro, index) => `
+            <tr>
+                <td><img src="${pro.img}" class="product-img-td"></td>
+                <td><strong>${pro.name}</strong></td>
+                <td><span class="status-badge" style="background: #e2e8f0; color: #475569;">${pro.brand}</span></td>
+                <td><span class="price-text">${pro.price.toLocaleString()}đ</span></td>
+                <td>
+                    <button class="btn-action view"><i class="fas fa-edit"></i></button>
+                    <button class="btn-action delete" onclick="deleteProduct(${index})"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>
+        `,
+          )
+          .join("");
+      }
+
+      function deleteProduct(index) {
+        if (confirm("Bạn có chắc muốn xóa sản phẩm này khỏi hệ thống?")) {
+          products.splice(index, 1);
+          localStorage.setItem("allProducts", JSON.stringify(products));
+          renderProducts();
+        }
+      }
+
+      renderProducts();
+    </script> -->
+  </body>
+</html>

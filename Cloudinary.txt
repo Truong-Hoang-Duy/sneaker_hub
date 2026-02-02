@@ -1,0 +1,5 @@
+- Cloud Name: Lấy tên tài khoản của bạn (hiển thị ở Dashboard).
+- Upload Preset: * Vào Settings (biểu tượng bánh răng) -> chọn tab Upload
+ + Cuộn xuống mục Upload presets và chọn Add upload preset.
+ + Thiết lập Signing Mode thành Unsigned (đây là bước quan trọng để upload từ trình duyệt).
+ + Lưu lại và copy tên Preset đó.

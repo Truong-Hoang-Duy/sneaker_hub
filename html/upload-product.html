@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
@@ -12,6 +12,11 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <link rel="icon" type="image/png" href="../img/logo-white.png" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
   </head>
   <body class="admin-body">
     <header class="admin-header">
@@ -73,8 +78,8 @@
               <input
                 type="text"
                 id="p-name-inp"
+                name="name"
                 placeholder="Ví dụ: Nike Air Jordan 1 Retro"
-                required
               />
             </div>
 
@@ -84,8 +89,8 @@
                 <input
                   type="number"
                   id="p-price-inp"
+                  name="price"
                   placeholder="2.500.000"
-                  required
                 />
               </div>
               <div class="form-group">
@@ -93,8 +98,8 @@
                 <input
                   type="number"
                   id="p-quantity-inp"
+                  name="quantity"
                   placeholder="1"
-                  required
                 />
               </div>
             </div>
@@ -126,7 +131,10 @@
             </div>
 
             <button type="submit" class="btn-submit-pro">
-              <i class="fas fa-cloud-upload-alt"></i> ĐĂNG SẢN PHẨM NGAY
+              <p class="btn-submit-text">
+                <i class="fas fa-cloud-upload-alt"></i> ĐĂNG SẢN PHẨM NGAY
+              </p>
+              <div class="loader"></div>
             </button>
           </form>
           <div class="preview-card">
@@ -154,6 +162,17 @@
       </main>
     </div>
 
-    <script src="../js/upload-product.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-auth-compat.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+
+    <script defer src="../config/firebase-config.js"></script>
+    <script defer src="../config/cloudinary-config.js"></script>
+    <script defer src="../common/toast.js"></script>
+    <script defer src="../js/upload-product.js"></script>
   </body>
 </html>

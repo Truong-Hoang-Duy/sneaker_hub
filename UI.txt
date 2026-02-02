@@ -1,3 +1,0 @@
-- Bổ sung thêm user-profile
-- Sửa lại script.js, admin.js, checkout.js
-- Thêm ID cho các ô input trong checkout.html
